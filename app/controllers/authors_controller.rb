@@ -7,10 +7,31 @@ class AuthorsController < ApplicationController
     @author = Author.new
   end
 
-  def create
-    @author = Author.create(author_params)
+  def edit
+    @artist = Artist.find(params[:id])
+  end
 
-    redirect_to author_path(@author)
+  def create
+    @author = Author.new(author_params)
+
+    if @author.save
+      redirect_to author_path(@author)
+    else
+      render :new
+    end
+
+  end
+
+  def update
+    @artist = Artist.find(params[:id])
+    @artist.update(artist_params)
+
+    if @artist.save
+      redirect_to artist_path(@artist)
+    else
+      render :edit
+    end
+
   end
 
   private
